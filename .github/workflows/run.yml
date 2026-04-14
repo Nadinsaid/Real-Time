@@ -1,18 +1,29 @@
-name: Run Script on Push
+name: Run All Code
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  run-script:
+  run-all:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
+      # Python setup
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - run: python your_script.py
+      # Run Python file
+      - name: Run Python
+        run: python Testing1.py
+
+      # Compile C file
+      - name: Compile C
+        run: gcc Testing2.c -o run
+
+      # Run C program
+      - name: Run C
+        run: ./run
