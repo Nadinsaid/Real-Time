@@ -1,18 +1,29 @@
-name: Run Script on Push
+name: Arduino Build
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-  run-script:
+  compile-sketch:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+      - name: Install Arduino CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+          sudo mv bin/arduino-cli /usr/local/bin/
 
-      - run: python WORKFLOW.py
+      - name: Update board index
+        run: arduino-cli core update-index
+
+      - name: Install Nano 33 IoT core
+        run: arduino-cli core install arduino:samd
+
+      - name: Compile tempSensor sketch
+        run: arduino-cli compile --fqbn arduino:samd:nano_33_iot ./tempSensor
