@@ -26,7 +26,6 @@ jobs:
         run: arduino-cli core install arduino:samd
 
       - name: Install Arduino libraries
-        - name: Install Arduino libraries
         run: |
           arduino-cli lib install "DHT sensor library"
           arduino-cli lib install "Adafruit Unified Sensor"
