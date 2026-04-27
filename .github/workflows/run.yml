@@ -25,5 +25,9 @@ jobs:
       - name: Install Nano 33 IoT core
         run: arduino-cli core install arduino:samd
 
+      - name: Install Arduino libraries
+        run: |
+          arduino-cli lib install "Adafruit GFX Library"
+
       - name: Compile tempSensor sketch
-        run: arduino-cli compile --fqbn arduino:samd:nano_33_iot ./tempSensor
+        run: arduino-cli compile --fqbn arduino:samd:nano_33_iot tempSensor
