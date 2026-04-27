@@ -32,6 +32,7 @@ jobs:
           arduino-cli lib install "Adafruit GFX Library"
           arduino-cli lib install "Adafruit SSD1306"
           arduino-cli lib install "WiFiNINA"
+          arduino-cli lib install "SSD1306Ascii"
 
       - name: Compile tempSensor sketch
         run: arduino-cli compile --fqbn arduino:samd:nano_33_iot tempSensor
