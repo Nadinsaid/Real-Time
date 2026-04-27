@@ -22,11 +22,13 @@ jobs:
       - name: Update board index
         run: arduino-cli core update-index
 
-      - name: Install Nano 33 IoT core
+      - name: Install Nano 33 IoT board core
         run: arduino-cli core install arduino:samd
 
       - name: Install Arduino libraries
         run: |
+          arduino-cli lib install "DHT sensor library"
+          arduino-cli lib install "Adafruit Unified Sensor"
           arduino-cli lib install "Adafruit GFX Library"
           arduino-cli lib install "Adafruit SSD1306"
 
