@@ -33,6 +33,7 @@ jobs:
           arduino-cli lib install "Adafruit SSD1306"
           arduino-cli lib install "WiFiNINA"
           arduino-cli lib install "SSD1306Ascii"
+          arduino-cli lib install "FreeRTOS_SAMD21"
 
       - name: Compile tempSensor sketch
         run: arduino-cli compile --fqbn arduino:samd:nano_33_iot tempSensor
