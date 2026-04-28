@@ -34,6 +34,7 @@ jobs:
           arduino-cli lib install "WiFiNINA"
           arduino-cli lib install "SSD1306Ascii"
           arduino-cli lib install "FreeRTOS_SAMD21"
+          arduino-cli lib install "Keypad"
 
       - name: Compile tempSensor sketch
         run: arduino-cli compile --fqbn arduino:samd:nano_33_iot tempSensor
