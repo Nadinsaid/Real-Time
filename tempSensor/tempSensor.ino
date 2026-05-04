@@ -314,18 +314,7 @@ void updateRGBOutput()
 {
   unsigned long nowMillis = millis();
 
-  // Green confirmation briefly shows a correct password only when no sensor
-  // output has priority.
-  if (greenConfirmActive && !alarmActive && !highTempDetected && !powerFailureDetected) {
-    rgbGreen();
-    if (nowMillis - greenConfirmStartMillis >= GREEN_CONFIRM_TIME_MS) {
-      greenConfirmActive = false;
-      rgbOff();
-    }
-    return;
-  }
-
-  // Highest priority: PIR alarm. Blink red while in grace period;
+  // Highest priority: active PIR alarm. Blink red while in grace period;
   // hold red during lockout.
   if (alarmActive) {
     if (alarmLockout) {
@@ -340,6 +329,19 @@ void updateRGBOutput()
       else rgbOff();
     }
     return;
+  }
+
+  // Correct-password confirmation. This is checked after active PIR alarm,
+  // but before the background sensor states. That lets the LED turn green
+  // briefly after disarming, then return to white/red if LDR or DHT22 is
+  // still active.
+  if (greenConfirmActive) {
+    if (nowMillis - greenConfirmStartMillis < GREEN_CONFIRM_TIME_MS) {
+      rgbGreen();
+      return;
+    }
+
+    greenConfirmActive = false;
   }
 
   // Next priority: high temperature. Solid red until temp drops below
