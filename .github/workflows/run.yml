@@ -37,6 +37,7 @@ jobs:
           arduino-cli lib install "Keypad"
           arduino-cli lib install "WifiNINA"
           arduino-cli lib install "ArduinoMqttClient"
+          arduino-cli lib install "MQTT"
           
 
       - name: Compile tempSensor sketch
